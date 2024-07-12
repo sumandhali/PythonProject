@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.0.1 (Python 3.12.2 on win32)" generated="2024-06-26T16:56:17.996133" rpa="false" schemaversion="5">
+<suite id="s1" name="TC7 basicauthentication" source="D:\PyChramProjects\APIAutomation\TestCases\TC7_basicauthentication.robot">
+<test id="s1-t1" name="BasicAuth" line="27">
+<kw name="Create List" owner="BuiltIn">
+<msg time="2024-06-26T16:56:18.486998" level="INFO">${auth} = ['Admin', 'testuser123']</msg>
+<var>${auth}</var>
+<arg>Admin</arg>
+<arg>testuser123</arg>
+<doc>Returns a list containing given items.</doc>
+<status status="PASS" start="2024-06-26T16:56:18.486001" elapsed="0.000997"/>
+</kw>
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2024-06-26T16:56:18.488037" level="INFO">Creating Session using : alias=mysession, url=https://httpbin.org, headers={},                     cookies={}, auth=&lt;requests.auth.HTTPBasicAuth object at 0x0000021557F6BB00&gt;, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>mysession</arg>
+<arg>${base_url}</arg>
+<arg>auth=${auth}</arg>
+<arg>verify=False</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2024-06-26T16:56:18.488037" elapsed="0.000000"/>
+</kw>
+<kw name="Get Request" owner="RequestsLibrary">
+<msg time="2024-06-26T16:56:18.489035" level="WARN">Keyword 'RequestsLibrary.Get Request' is deprecated. Please use `GET On Session` instead.</msg>
+<msg time="2024-06-26T16:56:19.696377" level="INFO">GET Request : url=https://httpbin.org/basic-auth/Admin/testuser123 
+ path_url=/basic-auth/Admin/testuser123 
+ headers={'User-Agent': 'python-requests/2.32.3', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Basic QWRtaW46dGVzdHVzZXIxMjM='} 
+ body=None 
+ </msg>
+<msg time="2024-06-26T16:56:19.696592" level="INFO">GET Response : url=https://httpbin.org/basic-auth/Admin/testuser123 
+ status=200, reason=OK 
+ headers={'Date': 'Wed, 26 Jun 2024 11:26:15 GMT', 'Content-Type': 'application/json', 'Content-Length': '48', 'Connection': 'keep-alive', 'Server': 'gunicorn/19.9.0', 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Credentials': 'true'} 
+ body={
+  "authenticated": true, 
+  "user": "Admin"
+}
+ 
+ </msg>
+<msg time="2024-06-26T16:56:19.696956" level="INFO">D:\PyChramProjects\APIAutomation\.venv\Lib\site-packages\urllib3\connectionpool.py:1099: InsecureRequestWarning: Unverified HTTPS request is being made to host 'httpbin.org'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(</msg>
+<msg time="2024-06-26T16:56:19.698014" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<var>${response}</var>
+<arg>mysession</arg>
+<arg>/basic-auth/Admin/testuser123</arg>
+<doc>*DEPRECATED* Please use `GET On Session` instead.</doc>
+<status status="PASS" start="2024-06-26T16:56:18.489035" elapsed="1.208979"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<msg time="2024-06-26T16:56:19.699584" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${response.status_code}</arg>
+<arg>200</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2024-06-26T16:56:19.698585" elapsed="0.000999"/>
+</kw>
+<kw>
+<msg time="2024-06-26T16:56:19.700581" level="FAIL">Keyword name cannot be empty.</msg>
+<var>${json_obj}=</var>
+<var>${response.json()}</var>
+<var>${response.content}</var>
+<status status="FAIL" start="2024-06-26T16:56:19.700581" elapsed="0.000000">Keyword name cannot be empty.</status>
+</kw>
+<kw name="Get Value From Json" owner="JSONLibrary">
+<var>${authenticated}</var>
+<arg>${json_obj}</arg>
+<arg>$.authenticated</arg>
+<doc>Get Value From JSON using JSONPath</doc>
+<status status="NOT RUN" start="2024-06-26T16:56:19.700792" elapsed="0.000000"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>${authenticated}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2024-06-26T16:56:19.701984" elapsed="0.000000"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>${authenticated}</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="NOT RUN" start="2024-06-26T16:56:19.703301" elapsed="0.000000"/>
+</kw>
+<status status="FAIL" start="2024-06-26T16:56:18.483295" elapsed="1.220006">Keyword name cannot be empty.</status>
+</test>
+<status status="FAIL" start="2024-06-26T16:56:17.999392" elapsed="1.706708"/>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="1" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="0" fail="1" skip="0" id="s1" name="TC7 basicauthentication">TC7 basicauthentication</stat>
+</suite>
+</statistics>
+<errors>
+<msg time="2024-06-26T16:56:18.489035" level="WARN">Keyword 'RequestsLibrary.Get Request' is deprecated. Please use `GET On Session` instead.</msg>
+</errors>
+</robot>
